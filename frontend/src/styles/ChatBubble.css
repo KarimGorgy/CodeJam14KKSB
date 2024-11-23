@@ -1,0 +1,22 @@
+.chat-bubble {
+  max-width: 80%; /* Chat bubble cannot exceed 80% of the container width */
+  padding: 10px 15px;
+  margin: 10px 0; /* Vertical margin for spacing */
+  border-radius: 15px;
+  font-size: 14px;
+  word-wrap: break-word; /* Break long text onto the next line */
+  overflow-wrap: break-word; /* Ensure text always stays within bounds */
+  box-sizing: border-box; /* Include padding in width calculations */
+}
+
+.chat-bubble.bot {
+  background-color: #9b59b6; /* Bot's bubble color */
+  color: #ffffff;
+  align-self: flex-start; /* Align to the left */
+}
+
+.chat-bubble.user {
+  background-color: #6a0dad; /* User's bubble color */
+  color: #ffffff;
+  align-self: flex-end; /* Align to the right */
+}

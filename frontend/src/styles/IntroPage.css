@@ -1,0 +1,61 @@
+.intro-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background: linear-gradient(135deg, #1b1b32, #3e0066);
+    color: #ffffff;
+    text-align: center;
+    overflow: hidden;
+}
+
+.intro-header .logo {
+    height: 80px;
+    margin-bottom: 20px;
+}
+
+.intro-header h1 {
+    font-size: 36px;
+    margin-bottom: 10px;
+}
+
+.intro-header p {
+    font-size: 16px;
+    color: #dddddd;
+    margin-bottom: 30px;
+}
+
+.start-button {
+    background-color: #6a0dad;
+    border: none;
+    border-radius: 50px;
+    padding: 15px 30px;
+    font-size: 18px;
+    color: #ffffff;
+    cursor: pointer;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.start-button:hover {
+    background-color: #7f43b2;
+    transform: scale(1.05);
+}
+
+.start-button.animate {
+    animation: button-click 0.6s ease forwards;
+}
+
+@keyframes button-click {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(0.9);
+    }
+    100% {
+        transform: scale(50) translateY(-50vh);
+        opacity: 0;
+    }
+}

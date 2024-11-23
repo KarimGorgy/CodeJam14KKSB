@@ -1,0 +1,109 @@
+.chat-page {
+    display: flex;
+    flex-direction: row; /* Make it horizontal layout */
+    height: 100vh;
+    background: linear-gradient(135deg, #0f0f1d, #1b1b32);
+  }
+  
+  .chat-container {
+    flex: 1; /* Take all the available space except for the sidebar */
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .header {
+    background-color: #181824;
+    color: #ffffff;
+    padding: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .header .logo {
+    display: flex;
+    align-items: center;
+  }
+  
+  .header .logo img {
+    height: 30px;
+    margin-right: 10px;
+  }
+  
+  .header h1 {
+    font-size: 18px;
+  }
+  
+  .chat-area {
+    flex: 1;
+    overflow-y: auto; /* Scrollable chat area */
+    padding: 20px;
+    display: flex;
+    flex-direction: column; /* Stack bubbles vertically */
+  }
+  
+  .chat-bubble {
+    max-width: 80%; /* Chat bubble width */
+    padding: 10px 15px;
+    margin: 10px 0;
+    border-radius: 15px;
+    font-size: 14px;
+    word-wrap: break-word; /* Wrap long words */
+    box-sizing: border-box; /* Include padding in width calculations */
+  }
+  
+  .chat-bubble.bot {
+    align-self: flex-start;
+    background-color: #9b59b6;
+    color: #ffffff;
+  }
+  
+  .chat-bubble.user {
+    align-self: flex-end;
+    background-color: #6a0dad;
+    color: #ffffff;
+  }
+  
+  .chat-area::-webkit-scrollbar {
+    width: 8px;
+  }
+  
+  .chat-area::-webkit-scrollbar-thumb {
+    background-color: #6a0dad;
+    border-radius: 5px;
+  }
+  
+  .footer {
+    position: sticky;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    background-color: #181824;
+    box-shadow: 0px -4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .footer input {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #6a0dad;
+    border-radius: 30px;
+    margin-right: 10px;
+    background-color: #1e1e30;
+    color: #ffffff;
+  }
+  
+  .footer button {
+    background-color: #6a0dad;
+    border: none;
+    border-radius: 30px;
+    padding: 10px 20px;
+    color: #ffffff;
+    cursor: pointer;
+  }
+  
+  .footer button:hover {
+    background-color: #7f43b2;
+  }
+  

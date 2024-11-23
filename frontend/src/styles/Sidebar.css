@@ -1,0 +1,125 @@
+.sidebar {
+    width: 300px;
+    background-color: #181824;
+    color: #ffffff;
+    height: 100vh;
+    overflow: hidden; /* Prevent scrollbars */
+    box-shadow: -2px 0px 6px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: width 0.3s ease, padding 0.3s ease; /* Smooth transition */
+}
+
+.sidebar.collapsed {
+    width: 60px; /* Width when collapsed */
+    padding: 0; /* Remove internal padding in collapsed mode */
+}
+
+.sidebar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+}
+
+.sidebar-header h2 {
+    margin: 0;
+    font-size: 20px;
+}
+
+.toggle-button {
+    background: none;
+    border: none;
+    color: #ffffff;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.toggle-button:hover {
+    color: #7f43b2;
+}
+
+.sidebar ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    overflow-y: auto;
+    flex-grow: 1; /* Allow the list to grow and scroll independently if necessary */
+}
+
+.sidebar ul::-webkit-scrollbar {
+    display: none; /* Hide unwanted scrollbars */
+}
+
+.sidebar li {
+    margin-bottom: 10px;
+    padding: 10px;
+    background-color: #1e1e30;
+    border-radius: 10px;
+    display: flex;
+    justify-content: space-between; /* Align content horizontally */
+    align-items: center;
+    transition: background-color 0.3s;
+}
+
+.sidebar li.active {
+    background-color: #6a0dad;
+}
+
+.sidebar li:hover {
+    background-color: #7f43b2;
+    color: #ffffff;
+    cursor: pointer;
+}
+
+/* Trash icon styles */
+.trash-icon {
+    font-size: 16px;
+    cursor: pointer;
+    color: #ffffff;
+    margin-left: 10px; /* Adds spacing between the name and icon */
+    opacity: 0; /* Initially hidden */
+    transition: opacity 0.3s ease, color 0.3s ease;
+}
+
+.sidebar li:hover .trash-icon {
+    opacity: 1; /* Show icon on hover */
+}
+
+.trash-icon:hover {
+    color: #f44336; /* Change to red on hover */
+}
+
+/* Add conversation button */
+.add-conversation {
+    background-color: #6a0dad;
+    color: white;
+    font-size: 18px;
+    border: none;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    margin: 10px auto; /* Center the button horizontally */
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.add-conversation:hover {
+    transform: scale(1.1);
+    background-color: #7f43b2;
+    box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.3);
+}
+
+/* Conversation name styling for better spacing */
+.conversation-name {
+    flex: 1;
+    text-align: left;
+    white-space: nowrap; /* Prevents text wrapping */
+    overflow: hidden;
+    text-overflow: ellipsis; /* Adds ellipsis for long names */
+}
