@@ -1,3 +1,6 @@
+import React, { useState } from "react";
+import "../styles/Sidebar.css";
+import DeleteIcon from "@mui/icons-material/Delete";
 const ChatBubble = ({ sender, text }) => {
   if (Array.isArray(text)) {
     return (
