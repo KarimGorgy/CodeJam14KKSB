@@ -18,11 +18,8 @@ const ChatPage = () => {
   const [nextConversationId, setNextConversationId] = useState(2);
   const [vehicleResults, setVehicleResults] = useState([]);
   const handleCompareClick = () => {
-    if (selectedVehicles.length > 0) {
+    
       navigate("/comparison", { state: { vehicles: selectedVehicles } }); // Pass vehicles via state
-    } else {
-      alert("Please select at least one vehicle to compare.");
-    }
   };
   const chatAreaRef = useRef(null);
 
