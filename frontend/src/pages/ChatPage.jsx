@@ -5,16 +5,25 @@ import InputBar from "../components/InputBar";
 import VehicleSlider from "../components/VehicleSlider";
 import "../styles/ChatPage.css";
 import logo from "../assets/matador-logo.png";
+import eclogo from "../assets/esto-car-4-you.png";
 import { v4 as uuidv4 } from 'uuid';
 
 const ChatPage = () => {
+  const [selectedVehicles, setSelectedVehicles] = useState([]); // State for selected vehicles
+  
   const [conversations, setConversations] = useState([
     { id: 1, name: "Conversation 1", messages: [] },
   ]);
   const [currentConversation, setCurrentConversation] = useState(1);
   const [nextConversationId, setNextConversationId] = useState(2);
   const [vehicleResults, setVehicleResults] = useState([]);
-
+  const handleCompareClick = () => {
+    if (selectedVehicles.length > 0) {
+      navigate("/comparison", { state: { vehicles: selectedVehicles } }); // Pass vehicles via state
+    } else {
+      alert("Please select at least one vehicle to compare.");
+    }
+  };
   const chatAreaRef = useRef(null);
 
   const addConversation = () => {
@@ -144,7 +153,8 @@ const ChatPage = () => {
         <div className="header">
           <div className="logo">
             <img src={logo} alt="Matador Logo" />
-            <h1>Matador Chatbot</h1>
+            <img src={eclogo} alt="EC4U Logo" />
+            <h1>EC4U Chatbot</h1>
           </div>
         </div>
 
@@ -154,7 +164,26 @@ const ChatPage = () => {
           ))}
         </div>
 
-        {vehicleResults.length > 0 && <VehicleSlider vehicles={vehicleResults} />}
+         {/* Only enable navigation if vehicles are available */}
+         {vehicleResults.length > 0 && (
+          <>
+            <button
+                onClick={handleCompareClick} // Pass the vehicles for comparison
+                className="compare-btn"
+            
+            >
+              Compare Vehicles
+            </button>
+            <VehicleSlider
+              vehicles={vehicleResults}
+              onSelect={(vehicle) => {
+                if (!selectedVehicles.includes(vehicle) && selectedVehicles.length < 3) {
+                  setSelectedVehicles((prev) => [...prev, vehicle]);
+                }
+              }}
+            />
+          </>
+        )}
 
         <InputBar onSend={handleSend} />
       </div>
