@@ -1,0 +1,43 @@
+.comparison-page {
+    background-color: #0d1117; /* Dark background to match theme */
+    color: #ffffff; /* White text for contrast */
+    padding: 20px;
+    font-family: Arial, sans-serif;
+    min-height: 100vh;
+  }
+  
+  .comparison-page h1 {
+    color: #7d4cdb; /* Highlight color */
+    text-align: center;
+  }
+  
+  .vehicle-card {
+    background-color: #161b22; /* Slightly lighter dark for cards */
+    border: 1px solid #30363d;
+    border-radius: 10px;
+    padding: 15px;
+    margin: 10px;
+    color: #ffffff;
+  }
+  
+  .vehicle-card h2 {
+    color: #58a6ff; /* Highlighted vehicle names */
+  }
+  
+  .vehicle-card p {
+    margin: 5px 0;
+  }
+  
+  button {
+    background-color: #7d4cdb;
+    color: #ffffff;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  button:hover {
+    background-color: #956af0;
+  }
+  

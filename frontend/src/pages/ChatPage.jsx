@@ -1,4 +1,3 @@
-// ChatPage.jsx
 import React, { useState, useEffect, useRef } from "react";
 import ChatBubble from "../components/ChatBubble";
 import Sidebar from "../components/Sidebar";
@@ -6,6 +5,7 @@ import InputBar from "../components/InputBar";
 import VehicleSlider from "../components/VehicleSlider";
 import "../styles/ChatPage.css";
 import logo from "../assets/matador-logo.png";
+import { v4 as uuidv4 } from 'uuid';
 
 const ChatPage = () => {
   const [conversations, setConversations] = useState([
@@ -37,10 +37,11 @@ const ChatPage = () => {
       setCurrentConversation(null);
     }
   };
+  const [sessionId] = useState(() => uuidv4());
 
   const handleSend = async (userMessage) => {
     if (!currentConversation) return;
-
+    
     // Add user's message to the conversation
     setConversations((prev) =>
       prev.map((conversation) =>
@@ -55,48 +56,39 @@ const ChatPage = () => {
 
     try {
       console.log("Sending request to backend:", userMessage); // Debug log
-      const response = await fetch("http://127.0.0.1:5000/filter", {
+      const response = await fetch("http://127.0.0.1:5000/message", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ userMessage }),
+        body: JSON.stringify({ userMessage, sessionId }),
       });
 
       if (response.ok) {
-        const vehicles = await response.json();
-        console.log("Response from backend:", vehicles); // Debug log
-        setVehicleResults(vehicles);
-        // Add bot's response to the conversation
-        setConversations((prev) =>
-          prev.map((conversation) =>
-            conversation.id === currentConversation
-              ? {
-                  ...conversation,
-                  messages: [
-                    ...conversation.messages,
-                    { sender: "bot", text: "Here are some options!" },
-                  ],
-                }
-              : conversation
-          )
-        );
+      const data = await response.json();
+      console.log("Response from backend:", data); // Debug log
+
+      const botResponse = data.response || "Sorry, I didn't understand that.";
+      const recommendations = data.fulfillmentMessages || [];
+
+      // Add bot's response to the conversation
+      setConversations((prev) =>
+        prev.map((conversation) =>
+          conversation.id === currentConversation
+            ? {
+                ...conversation,
+                messages: [...conversation.messages, { sender: "bot", text: botResponse }],
+              }
+            : conversation
+        )
+      );
+
+      // Update vehicle results if recommendations are available
+      if (recommendations.length > 0) {
+        setVehicleResults(recommendations);
       } else {
-        // Handle error response
-        setConversations((prev) =>
-          prev.map((conversation) =>
-            conversation.id === currentConversation
-              ? {
-                  ...conversation,
-                  messages: [
-                    ...conversation.messages,
-                    { sender: "bot", text: "Sorry, something went wrong!" },
-                  ],
-                }
-              : conversation
-          )
-        );
+        setVehicleResults([]);
       }
-    } catch (error) {
-      console.error("Error communicating with backend:", error); // Log error
+    } else {
+      // Handle error response
       setConversations((prev) =>
         prev.map((conversation) =>
           conversation.id === currentConversation
@@ -104,14 +96,30 @@ const ChatPage = () => {
                 ...conversation,
                 messages: [
                   ...conversation.messages,
-                  { sender: "bot", text: "Error connecting to backend!" },
+                  { sender: "bot", text: "Sorry, something went wrong!" },
                 ],
               }
             : conversation
         )
       );
     }
-  };
+  } catch (error) {
+    console.error("Error communicating with backend:", error); // Log error
+    setConversations((prev) =>
+      prev.map((conversation) =>
+        conversation.id === currentConversation
+          ? {
+              ...conversation,
+              messages: [
+                ...conversation.messages,
+                { sender: "bot", text: "Error connecting to backend!" },
+              ],
+            }
+          : conversation
+      )
+    );
+  }
+};
 
   useEffect(() => {
     if (chatAreaRef.current) {
