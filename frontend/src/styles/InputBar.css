@@ -1,41 +1,42 @@
-/* Center and elevate the input bar */
 .footer {
   display: flex;
-  align-items: center;
-  justify-content: center; /* Center horizontally */
-  padding: 10px;
-  background-color: #181824;
-  box-shadow: 0px -4px 6px rgba(0, 0, 0, 0.1);
-  position: absolute;
-  bottom: 20px; /* Elevate from the bottom */
-  width: 80%; /* Reduce width */
-  left: 50%; /* Center alignment */
-  transform: translateX(-50%);
-  border-radius: 20px; /* Rounded elevation effect */
+  align-items: center; /* Align vertically */
+  justify-content: space-between; /* Space between input and button */
+  padding: 10px 20px;
+  background-color: #1e1e30; /* Match the theme */
+  border-radius: 10px;
+  box-shadow: 0px -2px 5px rgba(0, 0, 0, 0.2); /* Add subtle shadow */
+  margin: 20px auto; /* Add spacing from other elements */
+  max-width: 90%; /* Limit the input bar width */
 }
 
-/* Input field */
 .footer input {
-  flex: 1;
-  padding: 12px;
-  border: 1px solid rgba(6, 147, 227, 1); /* Cyan-blue border */
-  border-radius: 20px;
-  margin-right: 10px;
-  background-color: rgba(30, 30, 48, 0.9);
-  color: #ffffff;
-  outline: none;
+  flex: 1; /* Input takes most of the space */
+  font-size: 16px;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  margin-right: 10px; /* Space between input and button */
+  background-color: #2c2c3e; /* Input background color */
+  color: #ffffff; /* Input text color */
+}
+
+.footer input::placeholder {
+  color: #888; /* Placeholder color */
 }
 
 .footer button {
-  background-color: rgba(155, 81, 224, 1); /* Vivid purple */
-  border: none;
-  border-radius: 20px;
   padding: 10px 20px;
-  color: #ffffff;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  background-color: #6a0dad; /* Match the button color */
+  color: white;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: background-color 0.3s, transform 0.2s;
 }
 
 .footer button:hover {
-  background-color: rgba(121, 67, 178, 1); /* Slightly darker purple */
+  background-color: #7f43b2; /* Hover effect */
+  transform: scale(1.05); /* Slight enlargement on hover */
 }
