@@ -136,3 +136,38 @@ if __name__ == '__main__':
     
 
     app.run(debug=True)
+
+@app.route('/compare', methods=['POST'])
+def get_comparison_data():
+    """
+    API endpoint to fetch detailed information about selected vehicles for comparison.
+    """
+    try:
+        # Parse the incoming JSON data
+        request_data = request.json
+        print(f"Request data is: {request_data}")
+        vin_list = request_data.get('vinList', [])  # Expecting a list of VINs
+        print(f"Received VIN list for comparison: {vin_list}")
+
+        if not vin_list:
+            return jsonify({'error': 'VIN list is empty. Please provide VINs to compare.'}), 400
+
+        # Filter the dataframe for the selected VINs
+        comparison_data = df[df['VIN'].isin(vin_list)]
+
+        if comparison_data.empty:
+            return jsonify({'error': 'No vehicles found for the provided VINs.'}), 404
+
+        # Convert the results to a readable format
+        response = comparison_data[[
+            "VIN", "Year", "Make", "Model", "SellingPrice", "Miles", "Body",
+            "Ext_Color_Generic", "Int_Color_Generic", "Drivetrain", "Fuel_Type",
+            "CityMPG", "HighwayMPG", "PassengerCapacity", "Transmission"
+        ]].to_dict(orient="records")
+
+        return jsonify(response)
+
+    except Exception as e:
+        print(f"Error fetching comparison data: {e}")
+        return jsonify({'error': str(e)}), 500
+

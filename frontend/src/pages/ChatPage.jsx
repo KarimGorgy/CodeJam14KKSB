@@ -1,20 +1,23 @@
-// ChatPage.jsx
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef , useContext} from "react";
 import ChatBubble from "../components/ChatBubble";
 import Sidebar from "../components/Sidebar";
 import InputBar from "../components/InputBar";
 import VehicleSlider from "../components/VehicleSlider";
 import "../styles/ChatPage.css";
 import logo from "../assets/matador-logo.png";
+import { useNavigate } from "react-router-dom";
+import { VehicleContext } from "../context/VehicleContext"; // Import context
 
 const ChatPage = () => {
+  const { setVehicles } = useContext(VehicleContext); // Access context here
   const [conversations, setConversations] = useState([
     { id: 1, name: "Conversation 1", messages: [] },
   ]);
   const [currentConversation, setCurrentConversation] = useState(1);
   const [nextConversationId, setNextConversationId] = useState(2);
   const [vehicleResults, setVehicleResults] = useState([]);
-
+  const [selectedVehicles, setSelectedVehicles] = useState([]);
+  const navigate = useNavigate();
   const chatAreaRef = useRef(null);
 
   const addConversation = () => {
@@ -41,7 +44,6 @@ const ChatPage = () => {
   const handleSend = async (userMessage) => {
     if (!currentConversation) return;
 
-    // Add user's message to the conversation
     setConversations((prev) =>
       prev.map((conversation) =>
         conversation.id === currentConversation
@@ -54,7 +56,6 @@ const ChatPage = () => {
     );
 
     try {
-      console.log("Sending request to backend:", userMessage); // Debug log
       const response = await fetch("http://127.0.0.1:5000/filter", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -63,9 +64,7 @@ const ChatPage = () => {
 
       if (response.ok) {
         const vehicles = await response.json();
-        console.log("Response from backend:", vehicles); // Debug log
         setVehicleResults(vehicles);
-        // Add bot's response to the conversation
         setConversations((prev) =>
           prev.map((conversation) =>
             conversation.id === currentConversation
@@ -80,7 +79,6 @@ const ChatPage = () => {
           )
         );
       } else {
-        // Handle error response
         setConversations((prev) =>
           prev.map((conversation) =>
             conversation.id === currentConversation
@@ -96,7 +94,7 @@ const ChatPage = () => {
         );
       }
     } catch (error) {
-      console.error("Error communicating with backend:", error); // Log error
+      console.error("Error communicating with backend:", error);
       setConversations((prev) =>
         prev.map((conversation) =>
           conversation.id === currentConversation
@@ -146,7 +144,28 @@ const ChatPage = () => {
           ))}
         </div>
 
-        {vehicleResults.length > 0 && <VehicleSlider vehicles={vehicleResults} />}
+        {/* Only enable navigation if vehicles are available */}
+        {vehicleResults.length > 0 && (
+          <>
+            <button
+              onClick={() => {
+                setVehicles(vehicleResults); // Pass the vehicles for comparison
+                navigate("/comparison");
+              }}
+              className="compare-btn"
+            >
+              Compare Vehicles
+            </button>
+            <VehicleSlider
+              vehicles={vehicleResults}
+              onSelect={(vehicle) => {
+                if (!selectedVehicles.includes(vehicle) && selectedVehicles.length < 3) {
+                  setSelectedVehicles((prev) => [...prev, vehicle]);
+                }
+              }}
+            />
+          </>
+        )}
 
         <InputBar onSend={handleSend} />
       </div>

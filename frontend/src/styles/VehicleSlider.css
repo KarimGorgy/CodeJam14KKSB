@@ -1,56 +1,67 @@
 .vehicle-slider {
-    max-width: 800px; /* Limit width */
-    margin: 0 auto; /* Center horizontally */
-    min-height: 400px; /* Avoid collapsing height */
-  }
-  
-  
-  .vehicle-card {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 15px;
-    background-color: #1e1e30; /* Dark theme color */
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    text-align: center;
-  }
-  
-  .vehicle-image {
-    width: 100%;
-    max-width: 300px;
-    height: auto;
-    margin-bottom: 10px;
-    border-radius: 8px;
-    object-fit: cover;
-    background-color: #333; /* Fallback background for loading */
-  }
-  
-  .vehicle-info {
-    color: #fff;
-  }
-  
-  .vehicle-info h3 {
-    font-size: 1.5rem;
-    margin: 10px 0;
-  }
-  
-  .vehicle-info p {
-    margin: 5px 0;
-    font-size: 1rem;
-  }
-  
-  .slick-prev,
-  .slick-next {
-    z-index: 2;
-    background-color: rgba(0, 0, 0, 0.5);
-    border-radius: 50%;
-    width: 40px;
-    height: 40px;
-  }
-  
-  .slick-dots li button:before {
-    color: #fff;
-  }
-  
+  max-width: 800px;
+  margin: 0 auto;
+  min-height: 400px;
+}
+
+.vehicle-card {
+  display: flex;
+  align-items: center; /* Align items vertically */
+  justify-content: space-between; /* Space out image, info, and circle */
+  padding: 15px;
+  background-color: #1e1e30;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  text-align: left;
+}
+
+.vehicle-image {
+  width: 30%;
+  max-width: 200px;
+  border-radius: 8px;
+  background-color: #333;
+  object-fit: cover;
+}
+
+.vehicle-info {
+  flex: 1;
+  color: #fff;
+  margin-left: 20px;
+}
+
+.score-circle {
+  width: 80px;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 15px;
+  position: relative;
+}
+
+.circular-chart {
+  max-width: 100%;
+  max-height: 100%;
+}
+
+.circle-bg {
+  fill: none;
+  stroke: #eee;
+  stroke-width: 3.8;
+}
+
+.circle {
+  fill: none;
+  stroke: #4caf50;
+  stroke-width: 3;
+  stroke-linecap: round;
+  animation: progress 1s ease-out forwards;
+}
+
+.score-text {
+  font-size: 0.8em;
+  font-weight: bold;
+  fill: #fff;
+  text-align: center;
+  position: absolute;
+}

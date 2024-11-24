@@ -7,8 +7,8 @@ import matplotlib.pyplot as plt
 def mainfunction():
     # Load a blank English model
     print("ENTERED MAIN FUNCITON")
-    nlp = spacy.load("en_core_web_md")
-    ner= nlp.get_pipe("ner")
+    nlp = spacy.blank("en")
+    ner= nlp.add_pipe("ner")
 
     # Define your training examples with correct entity offsets
     examples = [
